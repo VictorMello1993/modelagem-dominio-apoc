@@ -5,6 +5,6 @@ module.exports = {
   testMatch: ["**/tests/**/*.spec.ts"],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1"
-  },
+  }
   // setupFiles: ["<rootDir>/tests/.env.ts"]
 };
