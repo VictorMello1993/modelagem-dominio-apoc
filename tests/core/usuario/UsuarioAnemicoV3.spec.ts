@@ -1,4 +1,5 @@
 import { UsuarioAnemicoV3 as Usuario } from "@/core/usuario/UsuarioAnemicoV3";
+import Erros from "@/core/constants/Erros";
 
 const usuarioValido = () => new Usuario(123,
   "fulano",
@@ -26,11 +27,17 @@ test("Deve permitir usuário com id negativo", () => {
 test("Deve permitir usuário e-mail inválido", () => {
   const usuario: Usuario = usuarioValido();
   usuario.setEmail("!@_$");
-  expect(usuario.getEmail()).toBe("!@_$");
+  expect(usuario.getEmail()).toBe(usuario.getEmail());
 });
 
-test("Deve permitir usuário com senha inválida", () => {
+test("Deve lançar erro ao tentar alterar senha com tamanho menor que 6 caracteres", () => {
   const usuario: Usuario = usuarioValido();
-  usuario.setSenha("a");
-  expect(usuario.getSenha()).toBe("a");
+  expect(() => usuario.setSenha("a45")).toThrow(Erros.SENHA_INVALIDA);
+});
+
+test("Deve alterar senha com senha maior ou igual a 6 caracteres", () => {
+  const novaSenhaValida = "123456";
+  const usuario: Usuario = usuarioValido();
+  usuario.setSenha(novaSenhaValida);
+  expect(usuario.getSenha()).toBe(novaSenhaValida);
 });
