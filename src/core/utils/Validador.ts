@@ -1,9 +1,14 @@
 export class Validador {
+  static combinar(...erros: (string | null)[]): string[] | null {
+    const errosFiltrados = erros.filter(erro => erro !== null) as string[];
+    return errosFiltrados.length > 0 ? errosFiltrados : null;
+  }
+
   static naoNulo(valor: any, msgErro: string): string | null {
     return valor !== null && valor !== undefined ? null : msgErro;
   }
 
-  static naoVazia(valor: string | null | undefined, msgErro: string): string | null {
+  static naoVazio(valor: string | null | undefined, msgErro: string): string | null {
     const msg = Validador.naoNulo(valor, msgErro);
     if (msg) {
       return msg;
