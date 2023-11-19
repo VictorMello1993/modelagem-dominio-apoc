@@ -18,11 +18,15 @@ export class Validador {
   }
 
   static isEmailValido(email: string): boolean {
-    const regexEmailValido = (/\S+@\S+\.\S+/);
+    const regexEmailValido = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     return regexEmailValido.test(email);
   }
 
   static tamanhoMenorQue(valor: string | any[], tamanhoMaximo: number, msgErro: string): string | null {
     return valor.length < tamanhoMaximo ? null : msgErro;
+  }
+
+  static tamanhoMaiorQue(valor: string | any[], tamanhoMinimo: number, msgErro: string): string | null {
+    return valor.length > tamanhoMinimo ? null : msgErro;
   }
 }
