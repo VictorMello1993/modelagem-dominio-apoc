@@ -30,7 +30,7 @@ export class NomePessoaVO {
     return this.nome.split(" ").slice(1);
   }
 
-  get ultimoSobrenome(): string {
+  get ultimoSobrenome() {
     return this.nome.split(" ").reverse()[0];
   }
 }
