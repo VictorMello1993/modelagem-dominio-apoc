@@ -19,5 +19,13 @@ test("Deve lançar erro ao tentar criar nome sem sobrenome", () => {
 });
 
 test("Deve lançar erro ao tentar criar nome com caracteres especiais", () => {
-  expect(() => new NomePessoaVO("Victor @0000Victor")).toThrow(Erros.NOME_CARACTERES_INVALIDOS);
+  expect(() => new NomePessoaVO("Victor Santos @0000Victor")).toThrow(Erros.NOME_CARACTERES_INVALIDOS);
+});
+
+test("Deve criar nome com sobrenome", () => {
+  const nome = new NomePessoaVO("Victor Santos de Mello");
+  expect(nome.nomeCompleto).toBe("Victor Santos de Mello");
+  expect(nome.primeiroNome).toBe("Victor");
+  expect(nome.sobrenomes).toEqual(["Santos", "de", "Mello"]);
+  expect(nome.ultimoSobrenome).toEqual("Mello");
 });

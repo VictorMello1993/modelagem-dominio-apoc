@@ -29,4 +29,8 @@ export class Validador {
   static tamanhoMaiorQue(valor: string | any[], tamanhoMinimo: number, msgErro: string): string | null {
     return valor.length > tamanhoMinimo ? null : msgErro;
   }
+
+  static regex(valor: string, regex: RegExp, msgErro: string): string | null {
+    return regex.test(valor) ? null : msgErro;
+  }
 }
