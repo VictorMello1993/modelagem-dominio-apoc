@@ -3,8 +3,8 @@ import Erros from "@/core/errors/Erros";
 
 export class NomePessoaVO {
   readonly nome: string;
-  constructor(nome: string) {
-    this.nome = nome.trim();
+  constructor(nome?: string) {
+    this.nome = nome?.trim() ?? "";
     const erros = Validador.combinar(
       Validador.naoVazio(this.nome, Erros.NOME_VAZIO),
       Validador.tamanhoMaiorQue(this.nome, 4, Erros.NOME_PEQUENO),

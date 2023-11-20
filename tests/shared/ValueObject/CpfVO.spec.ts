@@ -56,19 +56,19 @@ test("Deve criar CPF formatado", () => {
 });
 
 test("Deve criar CPF sem formatação", () => {
-  expect(new CpfVO("899.368.190-20").cpf).toBe("89936819020");
-  expect(new CpfVO("013.333.130-04").cpf).toBe("01333313004");
-  expect(new CpfVO("001.619.770-49").cpf).toBe("00161977049");
-  expect(new CpfVO("899.368.190-20").cpf).toBe("89936819020");
-  expect(new CpfVO("013.333.130-04").cpf).toBe("01333313004");
-  expect(new CpfVO("001.619.770-49").cpf).toBe("00161977049");
+  expect(new CpfVO("899.368.190-20").valor).toBe("89936819020");
+  expect(new CpfVO("013.333.130-04").valor).toBe("01333313004");
+  expect(new CpfVO("001.619.770-49").valor).toBe("00161977049");
+  expect(new CpfVO("899.368.190-20").valor).toBe("89936819020");
+  expect(new CpfVO("013.333.130-04").valor).toBe("01333313004");
+  expect(new CpfVO("001.619.770-49").valor).toBe("00161977049");
 });
 
 test("Deve criar um CPF válido", () => {
   const cpfVO = new CpfVO("277.236.850-50");
 
-  expect(cpfVO.cpf.length).toBe(11);
-  expect(() => CpfVO.validarDigitoVerificador(cpfVO.cpf, +cpfVO.digitosVerificadores[9])).toBeTruthy();
-  expect(() => CpfVO.validarDigitoVerificador(cpfVO.cpf, +cpfVO.digitosVerificadores[10])).toBeTruthy();
-  expect(CpfVO.CpfValido(cpfVO.cpf)).toBeTruthy();
+  expect(cpfVO.valor.length).toBe(11);
+  expect(() => CpfVO.validarDigitoVerificador(cpfVO.valor, +cpfVO.digitosVerificadores[9])).toBeTruthy();
+  expect(() => CpfVO.validarDigitoVerificador(cpfVO.valor, +cpfVO.digitosVerificadores[10])).toBeTruthy();
+  expect(CpfVO.CpfValido(cpfVO.valor)).toBeTruthy();
 });

@@ -1,22 +1,22 @@
 import Erros from "@/core/errors/Erros";
 
 export class CpfVO {
-  readonly cpf: string;
+  readonly valor: string;
   constructor(cpf?: string) {
-    this.cpf = cpf?.trim().replace(/\D/g, "") ?? "";
+    this.valor = cpf?.trim().replace(/\D/g, "") ?? "";
 
-    if (!CpfVO.CpfValido(this.cpf)) {
+    if (!CpfVO.CpfValido(this.valor)) {
       throw new Error(Erros.CPF_INVALIDO);
     }
   }
 
   get formatado(): string {
     const regex = /(\d{3})(\d{3})(\d{3})(\d{2})/;
-    return this.cpf.replace(regex, "$1.$2.$3-$4");
+    return this.valor.replace(regex, "$1.$2.$3-$4");
   }
 
   get digitosVerificadores(): string {
-    return this.cpf.slice(9);
+    return this.valor.slice(9);
   }
 
   static CpfValido(cpf: string): boolean {

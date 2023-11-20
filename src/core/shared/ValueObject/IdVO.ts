@@ -17,4 +17,12 @@ export class IdVO {
   static get novo() {
     return new IdVO();
   }
+
+  igual(outroId: IdVO): boolean {
+    return this.valor === outroId?.valor;
+  }
+
+  diferente(outroId: IdVO): boolean {
+    return this.valor !== outroId?.valor;
+  }
 }

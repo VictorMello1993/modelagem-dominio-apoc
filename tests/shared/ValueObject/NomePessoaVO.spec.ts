@@ -3,6 +3,7 @@ import { NomePessoaVO } from "@/core/shared/ValueObject/NomePessoaVO";
 
 test("Deve lançar erro ao tentar criar nome vazio", () => {
   expect(() => new NomePessoaVO("")).toThrow(Erros.NOME_VAZIO);
+  expect(() => new NomePessoaVO()).toThrow(Erros.NOME_VAZIO);
 });
 
 test("Deve lançar erro ao tentar criar nome menor que 4 caracteres", () => {
