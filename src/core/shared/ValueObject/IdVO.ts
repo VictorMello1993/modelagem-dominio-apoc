@@ -1,5 +1,5 @@
 import { v4 as uuid, validate } from "uuid";
-import Erros from "@/core/errors/pessoa/ErrosPessoa";
+import Erros from "@/core/errors/Erros";
 
 export class IdVO {
   readonly valor: string;

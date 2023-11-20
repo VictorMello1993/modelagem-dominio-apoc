@@ -1,37 +1,74 @@
 import { CpfVO } from "@/core/shared/ValueObject/CpfVO";
-import ErrosCpf from "@/core/errors/cpf/ErrosCpf";
+import Erros from "@/core/errors/Erros";
 
-test("Deve lançar erro ao tentar criar CPF vazio", () => {
-  expect(() => new CpfVO("")).toThrow(ErrosCpf.CPF_VAZIO);
+test("Deve lançar um erro para CPF inválido com string vazia ou undefined", () => {
+  expect(() => new CpfVO("")).toThrow(Erros.CPF_INVALIDO);
+  expect(() => new CpfVO()).toThrow(Erros.CPF_INVALIDO);
 });
 
-test("Deve lançar erro ao tentar criar CPF inválido, com menos de 11 caracteres", () => {
-  expect(() => new CpfVO("1234")).toThrow(ErrosCpf.CPF_PEQUENO);
+test("Deve lançar um erro para CPF inválido com string incompleta", () => {
+  expect(() => new CpfVO("123")).toThrow(Erros.CPF_INVALIDO);
+  expect(() => new CpfVO("12345")).toThrow(Erros.CPF_INVALIDO);
+  expect(() => new CpfVO("12345678")).toThrow(Erros.CPF_INVALIDO);
+  expect(() => new CpfVO("1234567890123")).toThrow(Erros.CPF_INVALIDO);
+  expect(() => new CpfVO("123.456.789-0")).toThrow(Erros.CPF_INVALIDO);
 });
 
-test("Deve lançar erro ao tentar criar CPF inválido, com mais de 11 caracteres", () => {
-  expect(() => new CpfVO("123456489879878797897899")).toThrow(ErrosCpf.CPF_GRANDE);
+test("Deve lançar um erro para CPF com dv inválido", () => {
+  expect(() => new CpfVO("899.368.190-29")).toThrow(Erros.CPF_INVALIDO);
+  expect(() => new CpfVO("899.368.190-40")).toThrow(Erros.CPF_INVALIDO);
+  expect(() => new CpfVO("89936819029")).toThrow(Erros.CPF_INVALIDO);
+  expect(() => new CpfVO("89936819040")).toThrow(Erros.CPF_INVALIDO);
 });
 
-test("Deve lançar erro ao tentar criar CPF inválido, que possui letras", () => {
-  expect(() => new CpfVO("158.526.aaa-42")).toThrow(ErrosCpf.CPF_INVALIDO);
+test("Deve lançar um erro para CPF que não contém todos os dígitos", () => {
+  expect(() => new CpfVO("899.368.190-ab")).toThrow(Erros.CPF_INVALIDO);
+  expect(() => new CpfVO("aa.?^-.190-40")).toThrow(Erros.CPF_INVALIDO);
+  expect(() => new CpfVO("aaaaaaaaaaaaa")).toThrow(Erros.CPF_INVALIDO);
+  expect(() => new CpfVO("ddddddd")).toThrow(Erros.CPF_INVALIDO);
 });
 
-test("Deve lançar erro ao tentar criar CPF com primeiro DV inválido", () => {
-  expect(() => new CpfVO("158.526.420-56")).toThrow(ErrosCpf.CPF_1_DV_INVALIDO);
+test("Deve retornar CPF válido (true) para dv válido", () => {
+  expect(CpfVO.CpfValido("899.368.190-20")).toBe(true);
+  expect(CpfVO.CpfValido("013.333.130-04")).toBe(true);
+  expect(CpfVO.CpfValido("001.619.770-49")).toBe(true);
+  expect(CpfVO.CpfValido("89936819020")).toBe(true);
+  expect(CpfVO.CpfValido("01333313004")).toBe(true);
+  expect(CpfVO.CpfValido("00161977049")).toBe(true);
 });
 
-test("Deve lançar erro ao tentar criar CPF com segundo DV inválido", () => {
-  expect(() => new CpfVO("158.526.420-56")).toThrow(ErrosCpf.CPF_2_DV_INVALIDO);
+test("Deve retornar dv do CPF válido", () => {
+  expect(new CpfVO("899.368.190-20").digitosVerificadores).toBe("20");
+  expect(new CpfVO("013.333.130-04").digitosVerificadores).toBe("04");
+  expect(new CpfVO("001.619.770-49").digitosVerificadores).toBe("49");
+  expect(new CpfVO("89936819020").digitosVerificadores).toBe("20");
+  expect(new CpfVO("01333313004").digitosVerificadores).toBe("04");
+  expect(new CpfVO("00161977049").digitosVerificadores).toBe("49");
+});
+
+test("Deve criar CPF formatado", () => {
+  expect(new CpfVO("89936819020").formatado).toBe("899.368.190-20");
+  expect(new CpfVO("01333313004").formatado).toBe("013.333.130-04");
+  expect(new CpfVO("00161977049").formatado).toBe("001.619.770-49");
+  expect(new CpfVO("89936819020").formatado).toBe("899.368.190-20");
+  expect(new CpfVO("01333313004").formatado).toBe("013.333.130-04");
+  expect(new CpfVO("00161977049").formatado).toBe("001.619.770-49");
+});
+
+test("Deve criar CPF sem formatação", () => {
+  expect(new CpfVO("899.368.190-20").cpf).toBe("89936819020");
+  expect(new CpfVO("013.333.130-04").cpf).toBe("01333313004");
+  expect(new CpfVO("001.619.770-49").cpf).toBe("00161977049");
+  expect(new CpfVO("899.368.190-20").cpf).toBe("89936819020");
+  expect(new CpfVO("013.333.130-04").cpf).toBe("01333313004");
+  expect(new CpfVO("001.619.770-49").cpf).toBe("00161977049");
 });
 
 test("Deve criar um CPF válido", () => {
   const cpfVO = new CpfVO("277.236.850-50");
-  const regex = /(\d{3}.?\d{3}.?\d{3}-?\d{2})/;
-  const cpfValido = regex.test(cpfVO.cpf);
 
-  expect(cpfVO.semMascara.length).toBe(11);
-  expect(cpfValido).toBeTruthy();
-  expect(cpfVO.primeiroDV).toBe(5);
-  expect(cpfVO.segundoDV).toBe(0);
+  expect(cpfVO.cpf.length).toBe(11);
+  expect(() => CpfVO.validarDigitoVerificador(cpfVO.cpf, +cpfVO.digitosVerificadores[9])).toBeTruthy();
+  expect(() => CpfVO.validarDigitoVerificador(cpfVO.cpf, +cpfVO.digitosVerificadores[10])).toBeTruthy();
+  expect(CpfVO.CpfValido(cpfVO.cpf)).toBeTruthy();
 });

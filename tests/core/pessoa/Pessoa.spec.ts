@@ -1,4 +1,4 @@
-import Erros from "@/core/errors/pessoa/ErrosPessoa";
+import Erros from "@/core/errors/Erros";
 import { Pessoa } from "@/core/pessoa/Pessoa";
 
 test("Deve lançar erro ao tentar criar uma pessoa com nome vazio", () => {

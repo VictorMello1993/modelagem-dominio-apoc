@@ -1,4 +1,4 @@
-import Erros from "@/core/errors/pessoa/ErrosPessoa";
+import Erros from "@/core/errors/Erros";
 import { Validador } from "@/core/utils/Validador";
 
 export class UsuarioAnemicoV4 {
