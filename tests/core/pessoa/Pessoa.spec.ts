@@ -1,6 +1,6 @@
 import Erros from "@/core/errors/Erros";
 import { Pessoa } from "@/core/pessoa/Pessoa";
-import { IdVO } from "../../../src/core/shared/ValueObject/IdVO";
+import { IdVO } from "@/core/shared/ValueObject/IdVO";
 
 test("Deve lançar erro ao tentar criar uma pessoa com nome vazio", () => {
   expect(() => new Pessoa({ nome: "", cpf: "" })).toThrow(Erros.NOME_VAZIO);
@@ -29,7 +29,7 @@ test("Deve clonar objeto com id alterado", () => {
   const pessoa = new Pessoa({ nome: "Fulano Da Silva Machado", cpf: "313.693.380-07" });
   const novaPessoa = pessoa.clone({ id: IdVO.novo.valor });
 
-expect(novaPessoa.id.valor !== pessoa.id.valor).toBeTruthy();
+  expect(novaPessoa.id.valor !== pessoa.id.valor).toBeTruthy();
   expect(novaPessoa.nome.nomeCompleto).toBe(pessoa.nome.nomeCompleto);
   expect(novaPessoa.cpf.valor).toBe(pessoa.cpf.valor);
 });
