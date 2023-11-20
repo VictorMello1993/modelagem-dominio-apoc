@@ -33,4 +33,8 @@ export class Validador {
   static regex(valor: string, regex: RegExp, msgErro: string): string | null {
     return regex.test(valor) ? null : msgErro;
   }
+
+  static DvValido(dvValido: number, dv: number, msgErro: string): string | null {
+    return dvValido === dv ? null : msgErro;
+  }
 }

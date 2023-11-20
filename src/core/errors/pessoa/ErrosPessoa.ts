@@ -1,4 +1,4 @@
-const Erros = {
+const ErrosPessoa = {
   NOME_VAZIO: "NOME_VAZIO",
   NOME_GRANDE: "NOME_GRANDE",
   NOME_PEQUENO: "NOME_PEQUENO",
@@ -8,4 +8,4 @@ const Erros = {
   ID_INVALIDO: "ID_INVALIDO"
 } as const;
 
-export default Erros;
+export default ErrosPessoa;

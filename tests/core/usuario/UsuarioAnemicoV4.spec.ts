@@ -1,5 +1,5 @@
 import { UsuarioAnemicoV4 as Usuario } from "@/core/usuario/UsuarioAnemicoV4";
-import Erros from "@/core/constants/Erros";
+import Erros from "@/core/errors/pessoa/ErrosPessoa";
 
 const usuarioValido = () => new Usuario(123,
   "fulano",

@@ -1,5 +1,5 @@
 import { IdVO } from "@/core/shared/ValueObject/IdVO";
-import Erros from "@/core/constants/Erros";
+import Erros from "@/core/errors/pessoa/ErrosPessoa";
 
 test("Deve criar um novo id válido", () => {
   const id = IdVO.novo;
