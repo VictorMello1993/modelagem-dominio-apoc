@@ -10,6 +10,7 @@
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
+      "@/tests/*": ["tests/*"],
       "@/*": ["src/*"]
     },
   }  
