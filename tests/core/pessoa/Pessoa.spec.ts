@@ -1,5 +1,4 @@
 import Erros from "@/core/errors/Erros";
-import { Pessoa } from "@/core/pessoa/Pessoa";
 import { IdVO } from "@/core/shared/ValueObject/IdVO";
 import { PessoaBuilder } from "@/tests/data/PessoaBuilder";
 

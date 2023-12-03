@@ -8,27 +8,27 @@ test("Deve criar uma região do CPF por código", () => {
 });
 
 test("Deve criar uma região do CPF por CPF", () => {
-  const regiao = RegiaoCpfVO.porCpf(new CpfVO("135.262.920-86"));
+  const regiao = RegiaoCpfVO.porCpf("135.262.920-86");
   expect(regiao.codigo).toBe(0);
   expect(regiao.estados[0]).toBe("RS");
 });
 
 test("Deve comparar regiões como iguais", () => {
-  const regiao1 = RegiaoCpfVO.porCpf(new CpfVO("630.390.497-12"));
-  const regiao2 = RegiaoCpfVO.porCpf(new CpfVO("832.390.727-77"));
+  const regiao1 = RegiaoCpfVO.porCpf("630.390.497-12");
+  const regiao2 = RegiaoCpfVO.porCpf("832.390.727-77");
   expect(regiao1.igual(regiao2)).toBeTruthy();
   expect(regiao1.diferente(regiao2)).toBeFalsy();
 });
 
 test("Deve comparar regiões como diferentes", () => {
-  const regiao1 = RegiaoCpfVO.porCpf(new CpfVO("332.465.371-19"));
-  const regiao2 = RegiaoCpfVO.porCpf(new CpfVO("296.139.668-97"));
+  const regiao1 = RegiaoCpfVO.porCpf("332.465.371-19");
+  const regiao2 = RegiaoCpfVO.porCpf("296.139.668-97");
   expect(regiao1.igual(regiao2)).toBeFalsy();
   expect(regiao1.diferente(regiao2)).toBeTruthy();
 });
 
 test("Deve comparar região com undefined", () => {
-  const regiao = RegiaoCpfVO.porCpf(new CpfVO("332.465.371-19"));
+  const regiao = RegiaoCpfVO.porCpf("332.465.371-19");
   expect(regiao.igual(undefined as any)).toBeFalsy();
   expect(regiao.diferente(undefined as any)).toBeTruthy();
 });

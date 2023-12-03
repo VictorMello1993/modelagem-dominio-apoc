@@ -1,4 +1,5 @@
 import Erros from "@/core/errors/Erros";
+import { RegiaoCpfVO } from "./RegiaoCpfVO";
 
 export class CpfVO {
   readonly valor: string;
@@ -8,6 +9,10 @@ export class CpfVO {
     if (!CpfVO.CpfValido(this.valor)) {
       throw new Error(Erros.CPF_INVALIDO);
     }
+  }
+
+  get regiao():RegiaoCpfVO {
+    return RegiaoCpfVO.porCpf(this.valor);
   }
 
   get formatado(): string {

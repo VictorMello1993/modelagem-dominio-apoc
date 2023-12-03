@@ -31,8 +31,8 @@ export class RegiaoCpfVO {
     return RegiaoCpfVO.TODAS[codigo];
   }
 
-  static porCpf(cpf: CpfVO): RegiaoCpfVO {
-    const codigo = +cpf.valor.replace(/\D/g, "")[8];
+  static porCpf(cpf: string): RegiaoCpfVO {
+    const codigo = +cpf.replace(/\D/g, "")[8];
     return RegiaoCpfVO.TODAS[codigo];
   }
 

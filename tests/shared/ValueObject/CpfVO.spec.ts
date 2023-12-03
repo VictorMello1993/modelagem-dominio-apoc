@@ -1,5 +1,6 @@
 import { CpfVO } from "@/core/shared/ValueObject/CpfVO";
 import Erros from "@/core/errors/Erros";
+import { RegiaoCpfVO } from "../../../src/core/shared/ValueObject/RegiaoCpfVO";
 
 test("Deve lançar um erro para CPF inválido com string vazia ou undefined", () => {
   expect(() => new CpfVO("")).toThrow(Erros.CPF_INVALIDO);
@@ -71,4 +72,15 @@ test("Deve criar um CPF válido", () => {
   expect(() => CpfVO.validarDigitoVerificador(cpfVO.valor, +cpfVO.digitosVerificadores[9])).toBeTruthy();
   expect(() => CpfVO.validarDigitoVerificador(cpfVO.valor, +cpfVO.digitosVerificadores[10])).toBeTruthy();
   expect(CpfVO.CpfValido(cpfVO.valor)).toBeTruthy();
+});
+
+test("Deve retornar a região do CPF", () => {
+  expect(new CpfVO("277.236.850-50").regiao).toBe(RegiaoCpfVO.RS);
+  expect(new CpfVO("277.236.850-50").regiao.codigo).toBe(0);
+  expect(new CpfVO("277.236.850-50").regiao.estados[0]).toBe("RS");
+  expect(new CpfVO("290.525.226-00").regiao).toBe(RegiaoCpfVO.MG);
+  expect(new CpfVO("290.525.226-00").regiao.codigo).toBe(6);
+  expect(new CpfVO("290.525.226-00").regiao.estados[0]).toBe("MG");
+  expect(new CpfVO("25624148372").regiao).toBe(RegiaoCpfVO.CE_MA_PI);
+  expect(new CpfVO("25624148372").regiao.codigo).toBe(3);
 });
